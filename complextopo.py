@@ -14,3 +14,21 @@ class ComplexTopo(Topo):
         Topo.__init__(self, **params)
 
         # TODO: Create your Mininet Topology here!
+        # add host and link config
+        hostConfig = {'cpu': cpu}
+        wifiConfig = {'bw': 25, 'delay': '2ms', 'loss': 0}
+        ethernetConfig = {'bw': 10, 'delay': '6ms', 'loss': 3}
+        g3Config = {'bw': 3, 'delay': "10ms", 'loss': 8}
+
+        # add 3 hosts
+        self.addHost("h1", **hostConfig)
+        self.addHost("h2", **hostConfig)
+        self.addHost("h3", **hostConfig)
+
+        # add 4 switches
+        self.addSwitch("s1")
+        self.addSwitch("s2")
+        self.addSwitch("s3")
+        self.addSwitch("s4")
+
+
