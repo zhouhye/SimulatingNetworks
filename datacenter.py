@@ -55,6 +55,19 @@ class DataCenter(Topo):
         #TODO: Create your DataCenter Mininet Topology here!
         #NOTE: Top Level Switch is labled tls1 and is created for you
         #NOTE: You MUST label mid level switches as mls1, mls2, ... mlsfi
+        for mls_index in range(1, fi + 1):
+            mls_name = f"mls{mls_index}"
+            self.addSwitch(mls_name)
+            self.addLink(tls, mls_name, **swlinkConfig)
+            for lls_index in range(1, fi + 1):
+                lls_name = f"s{mls_index}x{lls_index}"
+                self.addSwitch(lls_name)
+                self.addLink(mls_name, lls_name, **swlinkConfig)
+                for host_index in range(1, n + 1):
+                    host_name = f"h{mls_index}x{lls_index}x{host_index}"
+                    self.addHost(host_name, **hostConfig)
+                    self.addLink(lls_name, host_name, **hostlinkConfig)
+
         #NOTE: You MUST label low level switches s1x1, s1x2...s1xfi... sfix1, sfix2,... sfixfi  
         #NOTE: You MUST label hosts as h1x1x1, h1x1x2, ... hfixfixn
         #NOTE: Remember to use n and fi, don't use args.n or args.fi!     
